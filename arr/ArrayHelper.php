@@ -38,7 +38,16 @@ class ArrayHelper implements ArrayHelperInterface
         foreach($objects AS $key => $object){
             $resets     = [];
             foreach($unikeys AS $unikey){
-                $resets[]   = $object->{$unikey};
+                if(!is_array($unikey)){
+                    $unikey = [$unikey => 'ATTR'];
+                }
+                foreach($unikey AS $k => $type){
+                    if($type == 'ATTR'){
+                        $resets[]   = $object->{$k};
+                    }elseif($type == 'METHOD'){
+                        $resets[]   = $object->{$k}();
+                    }
+                }
             }
             $result[implode('_', $resets)]  = $object;
             unset($objects[$key]);
