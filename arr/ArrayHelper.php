@@ -9,11 +9,9 @@ namespace asbamboo\helper\arr;
 class ArrayHelper implements ArrayHelperInterface
 {
     /**
-     * 重置数组的key
      *
-     * @param array $array 准备重置key的数组
-     * @param array $unikey_fields 表示数组中唯一key的键名
-     * @return array
+     * {@inheritDoc}
+     * @see \asbamboo\helper\arr\ArrayHelperInterface::resetKey()
      */
     public static function resetKey(array $array, array $unikey_fields) : array
     {
@@ -25,6 +23,25 @@ class ArrayHelper implements ArrayHelperInterface
             }
             $result[implode('_', $resets)]  = $item;
             unset($array[$key]);
+        }
+        return $result;
+    }
+
+    /**
+     *
+     * {@inheritDoc}
+     * @see \asbamboo\helper\arr\ArrayHelperInterface::resetKeyObjectArray()
+     */
+    public static function resetObjectsKey(array $objects, array $unikeys) : array
+    {
+        $result         = [];
+        foreach($objects AS $key => $object){
+            $resets     = [];
+            foreach($unikeys AS $unikey){
+                $resets[]   = $object->{$unikey};
+            }
+            $result[implode('_', $resets)]  = $object;
+            unset($objects[$key]);
         }
         return $result;
     }

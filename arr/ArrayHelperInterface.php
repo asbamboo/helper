@@ -17,4 +17,13 @@ interface ArrayHelperInterface
      * @return array
      */
     public static function resetKey(array $array, array $unikey_fields) : array;
+
+    /**
+     * 重置由多个对象组成的数组的key
+     *
+     * @param array $objects
+     * @param array $unikeys
+     * @return array
+     */
+    public static function resetObjectsKey(array $objects, array $unikeys) : array;
 }
