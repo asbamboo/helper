@@ -18,4 +18,18 @@ class ArrayHelperTest extends TestCase
         $this->assertEquals('value2', $array['id2']['value']);
         $this->assertEquals('value3', $array['id3']['value']);
     }
+
+    public function testResetObjectsKey()
+    {
+        $array  = [
+            new class{ public $id = 'id1'; public $value = 'value1'; },
+            new class{ public $id = 'id2'; public $value = 'value2'; },
+            new class{ public $id = 'id3'; public $value = 'value3'; },
+        ];
+        $array  = ArrayHelper::resetObjectsKey($array, ['id']);
+
+        $this->assertEquals('value1', $array['id1']->value);
+        $this->assertEquals('value2', $array['id2']->value);
+        $this->assertEquals('value3', $array['id3']->value);
+    }
 }
